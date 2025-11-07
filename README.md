@@ -1,29 +1,22 @@
-# QueueCTL - Job Queue
+# QueueCTL - CLI Job Queue System
 
-A program that runs jobs one by one.
+A production-grade background job queue system written in Python. Manage, execute, and retry jobs with exponential backoff, automatic dead-letter queue handling, and persistent storage.
 
-## How to use
+## ✨ Features
 
-1. Start worker:
-   python -m queuectl.workers
+- ✅ **CLI-based Job Management** - Enqueue, list, and monitor jobs
+- ✅ **Worker Process** - Automatically executes pending jobs
+- ✅ **Exponential Backoff** - Smart retry strategy (2^attempt seconds)
+- ✅ **Dead Letter Queue (DLQ)** - Permanently failed jobs handled gracefully
+- ✅ **Persistent Storage** - Jobs survive application restarts
+- ✅ **Configuration Management** - Adjust retry count and backoff base
+- ✅ **Beautiful CLI** - Clear, intuitive command interface
+- ✅ **Job States** - pending → completed/dead with full tracking
 
-2. Add a job:
-   python -m queuectl.cli enqueue job1 "echo hello"
+## 📋 Requirements
 
-3. See status:
-   python -m queuectl.cli status
+- Python 3.7+
+- No external database required (uses JSON storage)
 
-4. List jobs:
-   python -m queuectl.cli list
+## 🚀 Installation
 
-## What it does
-
-- You add jobs
-- Worker runs them
-- Shows if they worked or failed
-
-## Files
-
-- cli.py - Takes commands
-- storage.py - Saves jobs
-- workers.py - Runs jobs

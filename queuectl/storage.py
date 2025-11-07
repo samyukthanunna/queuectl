@@ -46,3 +46,51 @@ def get_job_stats():
         if state in stats:
             stats[state] += 1
     return stats
+
+def move_to_dlq(job_id):
+    """Move job to Dead Letter Queue"""
+    jobs = load_jobs()
+    for job in jobs:
+        if job["id"] == job_id:
+            job["state"] = "dead"
+            break
+    save_jobs(jobs)
+
+def get_dlq_jobs():
+    """Get all dead letter queue jobs"""
+    jobs = load_jobs()
+    return [j for j in jobs if j.get("state") == "dead"]
+
+def retry_dlq_job(job_id):
+    """Retry a job from DLQ"""
+    jobs = load_jobs()
+    for job in jobs:
+        if job["id"] == job_id and job.get("state") == "dead":
+            job["state"] = "pending"
+            job["attempts"] = 0
+            break
+    save_jobs(jobs)
+
+def move_to_dlq(job_id):
+    """Move job to Dead Letter Queue"""
+    jobs = load_jobs()
+    for job in jobs:
+        if job["id"] == job_id:
+            job["state"] = "dead"
+            break
+    save_jobs(jobs)
+
+def get_dlq_jobs():
+    """Get all dead letter queue jobs"""
+    jobs = load_jobs()
+    return [j for j in jobs if j.get("state") == "dead"]
+
+def retry_dlq_job(job_id):
+    """Retry a job from DLQ"""
+    jobs = load_jobs()
+    for job in jobs:
+        if job["id"] == job_id and job.get("state") == "dead":
+            job["state"] = "pending"
+            job["attempts"] = 0
+            break
+    save_jobs(jobs)
